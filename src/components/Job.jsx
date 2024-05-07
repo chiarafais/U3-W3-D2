@@ -2,6 +2,7 @@ import { Row, Col } from "react-bootstrap";
 import { Link } from "react-router-dom";
 import { Star, StarFill } from "react-bootstrap-icons";
 import { useDispatch, useSelector } from "react-redux";
+import { aggiungiAction, rimuoviAction } from "../redux/actions";
 
 const Job = ({ data }) => {
   const favorites = useSelector((state) => state.favourites.content);
@@ -18,24 +19,14 @@ const Job = ({ data }) => {
             color="gold"
             size={18}
             className="mr-2 m-3 my-auto"
-            onClick={() =>
-              dispatch({
-                type: "REMOVE_FROM_FAVOURITES",
-                payload: data.company_name,
-              })
-            }
+            onClick={() => dispatch(rimuoviAction(data.company_name))}
           />
         ) : (
           <Star
             color="gold"
             size={18}
             className="mr-2 m-3 my-auto"
-            onClick={() =>
-              dispatch({
-                type: "ADD_TO_FAVOURITES",
-                payload: data.company_name,
-              })
-            }
+            onClick={() => dispatch(aggiungiAction(data.company_name))}
           />
         )}
         <Link to={`/${data.company_name}`}>{data.company_name}</Link>
